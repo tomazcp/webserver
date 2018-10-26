@@ -34,9 +34,9 @@ public class Server {
         Request req = null;
         try {
             Socket clientSocket = socket.accept();
-            System.out.println("caralho");
             if (!clientSocket.isClosed()) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
                 req = createRequest(reader.readLine());
 
                 clientSocket.close();
@@ -46,6 +46,7 @@ public class Server {
             ex.printStackTrace();
         }
     }
+
 
     private Request createRequest(String header) {
         String[] headerInfo = header.split(" ");
