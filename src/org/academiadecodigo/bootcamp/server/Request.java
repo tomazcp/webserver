@@ -1,20 +1,24 @@
 package org.academiadecodigo.bootcamp.server;
 
-public class Request {
+class Request {
 
-    private String verb;
-    private String route;
+    private RequestType requestType;
+    private String resource;
 
-    Request(String verb, String route) {
-        this.verb = verb;
-        this.route = route;
+    Request(String requestType, String resource) {
+        this.requestType = RequestType.getRequestType(requestType);
+        if (resource.equals("/")) {
+            this.resource = "/index";
+        } else {
+            this.resource = resource;
+        }
     }
 
-    public String getVerb() {
-        return verb;
+    String getResource() {
+        return resource;
     }
 
-    public String getRoute() {
-        return route;
+    RequestType getRequestType() {
+        return requestType;
     }
 }
