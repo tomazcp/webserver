@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.server;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -69,12 +71,17 @@ public class Server {
                                     200, file.length(), "Document Follows");
 
                     String extension = file.getName().substring(file.getName().indexOf(".") + 1);
+
                     responseHeader.setContentType(
                             ContentTypeMapper.getContentType(extension));
 
                     res = new Response(fileToBytes(file), responseHeader);
-                    System.out.println(res.getResponseHeader().toString());
+
                 }
+                break;
+
+            default:
+                System.out.println("default");
                 break;
         }
 
@@ -113,9 +120,5 @@ public class Server {
             System.err.println(ex.getMessage());
         }
         return buffer;
-    }
-
-    private Response createResponse() {
-        return null;
     }
 }
