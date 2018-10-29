@@ -37,7 +37,7 @@ public class Server {
                     new InputStreamReader(clientSocket.getInputStream()));
 
             Request req = newRequest(reader.readLine());
-
+            //System.out.println(req.toString());
             //System.out.println(req.toString());
 
             Response res = processRequest(req);
@@ -60,11 +60,9 @@ public class Server {
 
     private Response processRequest(Request req) {
         Response res = null;
-        //System.out.println(req.getResource());
         switch (req.getRequestType()) {
             case GET:
                 File file = fetchResources(req.getResource());
-                System.out.println(file.getName());
                 if (file.exists()) {
                     ResponseHeader responseHeader =
                             new ResponseHeader(
@@ -90,7 +88,7 @@ public class Server {
 
     private void send(Response res, Socket clientSocket) {
         try (DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream())) {
-
+            System.out.println(res.getResponseHeader().toString());
             out.writeBytes(res.getResponseHeader().toString());
             out.write(res.getData());
 
@@ -101,10 +99,11 @@ public class Server {
 
     private File fetchResources(String resource) {
         File file;
-        if (!resource.matches("\\.")) {
-            file = new File(DIR + resource + ".html");
-        } else {
+
+        if (resource.lastIndexOf(".") != -1) {
             file = new File(DIR + resource);
+        } else {
+            file = new File(DIR + resource + ".html");
         }
         return file;
     }

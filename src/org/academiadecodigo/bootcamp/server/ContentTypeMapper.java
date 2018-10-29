@@ -13,6 +13,7 @@ class ContentTypeMapper {
         map.put("jpg", "image/jpg");
         map.put("png", "image/png");
         map.put("jpeg", "image/jpeg");
+        map.put("ico", "image/png");
         map.put("html", "text/html; charset=UTF-8");
 
         return map;

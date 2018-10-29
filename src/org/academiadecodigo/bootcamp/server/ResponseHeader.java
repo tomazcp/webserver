@@ -51,6 +51,6 @@ public class ResponseHeader {
     public String toString() {
         return "HTTP/1.0 " + statusCode + " " + message + "\r\n" +
                 "Content-Type: " + contentType + "\r\n" +
-                "Content-Length: " + fileSize + " \r\n";
+                "Content-Length: " + fileSize + " \r\n" + "\r\n";
     }
 }
