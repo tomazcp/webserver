@@ -3,6 +3,8 @@ package org.academiadecodigo.bootcamp.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class WebServer {
@@ -109,8 +111,8 @@ public class WebServer {
 
     private File fetchResources(String resource) {
         File file;
-        // Patter pattern = Pattern.compile("(\\.[^.]+)$");
-        // Matcher matcher = pattern.matcher(filePath);
+        //Pattern pattern = Pattern.compile("(\\.[^.]+)$");
+        //Matcher matcher = pattern.matcher(filePath);
         if (resource.lastIndexOf(".") != -1) {
             file = new File(DOCUMENT_ROOT + resource);
         } else {
