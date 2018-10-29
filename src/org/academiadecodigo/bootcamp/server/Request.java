@@ -18,6 +18,12 @@ class Request {
         return resource;
     }
 
+    @Override
+    public String toString() {
+        return "requestType: " + requestType +
+                "\nresource: " + resource;
+    }
+
     RequestType getRequestType() {
         return requestType;
     }

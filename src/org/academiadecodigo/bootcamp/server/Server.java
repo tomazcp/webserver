@@ -1,11 +1,8 @@
 package org.academiadecodigo.bootcamp.server;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
 
 
 public class Server {
@@ -39,10 +36,12 @@ public class Server {
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
 
-            Request req = createRequest(reader.readLine());
+            Request req = newRequest(reader.readLine());
+
+            //System.out.println(req.toString());
 
             Response res = processRequest(req);
-
+            //System.out.println(res.getResponseHeader().toString());
             send(res, clientSocket);
 
             clientSocket.close();
@@ -53,7 +52,7 @@ public class Server {
     }
 
 
-    private Request createRequest(String header) {
+    private Request newRequest(String header) {
         String[] headerInfo = header.split(" ");
 
         return new Request(headerInfo[0], headerInfo[1]);
@@ -61,10 +60,11 @@ public class Server {
 
     private Response processRequest(Request req) {
         Response res = null;
+        //System.out.println(req.getResource());
         switch (req.getRequestType()) {
             case GET:
                 File file = fetchResources(req.getResource());
-
+                System.out.println(file.getName());
                 if (file.exists()) {
                     ResponseHeader responseHeader =
                             new ResponseHeader(
@@ -84,7 +84,7 @@ public class Server {
                 System.out.println("default");
                 break;
         }
-
+        //System.out.println(res);
         return res;
     }
 

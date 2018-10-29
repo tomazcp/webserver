@@ -10,6 +10,8 @@ public class Response {
         this.responseHeader = responseHeader;
     }
 
+    Response() {}
+
     public void setResponseHeader(ResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
     }
@@ -24,5 +26,11 @@ public class Response {
 
     public byte[] getData() {
         return data;
+    }
+
+    @Override
+    public String toString() {
+        return responseHeader.toString() +
+                "data: " + data.length;
     }
 }
