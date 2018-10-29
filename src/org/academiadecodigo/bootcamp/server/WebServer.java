@@ -5,17 +5,20 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-public class Server {
+public class WebServer {
 
-    private static final String DIR = "www";
+    private static final String DOCUMENT_ROOT = "www";
 
     private int port;
     private ServerSocket socket;
 
-    public Server(int port) {
+    public WebServer(int port) {
         this.port = port;
     }
 
+    /**
+     * Starts the server
+     */
     public void start() {
         try {
             socket = new ServerSocket(port);
@@ -29,6 +32,9 @@ public class Server {
         }
     }
 
+    /**
+     * Listens for requests
+     */
     private void listen() {
         try {
             Socket clientSocket = socket.accept();
@@ -37,12 +43,11 @@ public class Server {
                     new InputStreamReader(clientSocket.getInputStream()));
 
             Request req = newRequest(reader.readLine());
-            //System.out.println(req.toString());
-            //System.out.println(req.toString());
 
             Response res = processRequest(req);
-            //System.out.println(res.getResponseHeader().toString());
-            send(res, clientSocket);
+            DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
+
+            send(res, out);
 
             clientSocket.close();
 
@@ -51,13 +56,23 @@ public class Server {
         }
     }
 
-
+    /**
+     * Creates a new request object from the incoming header
+     *
+     * @param header the request header
+     * @return
+     */
     private Request newRequest(String header) {
         String[] headerInfo = header.split(" ");
 
         return new Request(headerInfo[0], headerInfo[1]);
     }
 
+    /**
+     *
+     * @param req
+     * @return
+     */
     private Response processRequest(Request req) {
         Response res = null;
         switch (req.getRequestType()) {
@@ -82,28 +97,24 @@ public class Server {
                 System.out.println("default");
                 break;
         }
-        //System.out.println(res);
         return res;
     }
 
-    private void send(Response res, Socket clientSocket) {
-        try (DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream())) {
-            System.out.println(res.getResponseHeader().toString());
-            out.writeBytes(res.getResponseHeader().toString());
-            out.write(res.getData());
+    private void send(Response res, DataOutputStream out) throws IOException {
+        out.writeBytes(res.getResponseHeader().toString());
+        out.write(res.getData());
 
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
+        out.close();
     }
 
     private File fetchResources(String resource) {
         File file;
-
+        // Patter pattern = Pattern.compile("(\\.[^.]+)$");
+        // Matcher matcher = pattern.matcher(filePath);
         if (resource.lastIndexOf(".") != -1) {
-            file = new File(DIR + resource);
+            file = new File(DOCUMENT_ROOT + resource);
         } else {
-            file = new File(DIR + resource + ".html");
+            file = new File(DOCUMENT_ROOT + resource + ".html");
         }
         return file;
     }

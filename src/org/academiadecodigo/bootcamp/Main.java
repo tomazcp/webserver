@@ -1,12 +1,12 @@
 package org.academiadecodigo.bootcamp;
 
-import org.academiadecodigo.bootcamp.server.Server;
+import org.academiadecodigo.bootcamp.server.WebServer;
 
 public class Main {
 
     public static void main(String[] args) {
         int port = 8080;
-        Server server = new Server(port);
-        server.start();
+        WebServer webServer = new WebServer(port);
+        webServer.start();
     }
 }
