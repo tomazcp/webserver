@@ -3,9 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>WebServer</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
+          integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <h1>Hello There!</h1>
-    <img src="rodr.jpg" alt="image">
+<header>
+    <h1 class="title">Tomás' Profile</h1>
+    <p class="sub-title">
+        <em><i class="far fa-clock"></i> Last updated:
+            <script>document.write(new Date().toDateString())</script>
+        </em>
+    </p>
+</header>
+<hr>
+
+<div class="profile">
+    <div class="image">
+        <img src="tomaz.png" alt="image">
+    </div>
+    <div class="detail">
+        <h3><i class="fas fa-laptop-code"></i> Code Cadet</h3>
+        <ul class="list-items">
+            <li><i class="fas fa-location-arrow"></i> &ltAcademia de Código_></li>
+            <li><i class="fas fa-phone-square"></i> +351 913856858</li>
+            <li><i class="fas fa-at"></i> tomaspinto@protonmail.ch</li>
+        </ul>
+        <div class="social-media">
+            <a href="https://github.com/tomazcp/">
+                <i class="fab fa-github"></i>
+                Github
+            </a>
+            <a href="https://www.linkedin.com/in/tom%C3%A1s-pinto-a55b8b142/">
+                <i class="fab fa-linkedin"></i>
+                LinkedIn
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<hr>
+
+<h2 class="summary">Summary</h2>
+<p><i class="fab fa-php"></i> Backend PHP w/ Codeigniter</p>
+<p><i class="fab fa-node-js"></i> MEAN stack</p>
+<p><i class="fas fa-database"></i> Databases: MySQL & MongoDB</p>
+
+
 </body>
 </html>

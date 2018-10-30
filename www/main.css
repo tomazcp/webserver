@@ -1,0 +1,70 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.title {
+    text-align: center;
+}
+
+.sub-title {
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+}
+
+/*!*li:before {*!*/
+/*!*font-family: "Font Awesome 5 Free";*!*/
+/*!*content: "\f00c";*!*/
+/*!*font-weight: 900;*!*/
+/*!*padding-right: 5px;*!*/
+/*!*}*!*/
+
+/*.summary {*/
+/*!*margin-left: 100px;*!*/
+/*text-align: center;*/
+/*}*/
+
+/*!*.profile-image {*!*/
+/*!*border-radius: 50%;*!*/
+/*!*}*!*/
+
+/*.profile {*/
+/*position: fixed;*/
+/*top: 50%;*/
+/*left: 50%;*/
+/*transform: translate(-50%, -50%);*/
+/*}*/
+
+/*.profile .profile-image {*/
+/*border-radius: 50%;*/
+/*}*/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.profile {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 2% 10% 0 10%;
+    background-color: ghostwhite;
+    height: 400px;
+}
+
+.image > img {
+    border-radius: 50%;
+}
+
+.profile > div {
+    margin: 10px;
+    width: 400px;
+}
+
+.detail > ul {
+    padding: 0;
+}

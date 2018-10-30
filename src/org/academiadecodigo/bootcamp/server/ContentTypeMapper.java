@@ -13,8 +13,9 @@ class ContentTypeMapper {
         map.put("jpg", "image/jpg");
         map.put("png", "image/png");
         map.put("jpeg", "image/jpeg");
-        map.put("ico", "image/ico");
+        map.put("ico", "image/x-icon");
         map.put("html", "text/html; charset=UTF-8");
+        map.put("css", "text/css");
 
         return map;
     }

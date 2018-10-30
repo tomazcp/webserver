@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class WebServer {
 
-    private static final String DOCUMENT_ROOT = "www";
+    private static final String DOCUMENT_ROOT = "www/";
 
     private int port;
     private ServerSocket socket;

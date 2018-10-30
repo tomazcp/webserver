@@ -8,9 +8,9 @@ class Request {
     Request(String requestType, String resource) {
         this.requestType = RequestType.getRequestType(requestType);
         if (resource.equals("/")) {
-            this.resource = "/index";
+            this.resource = "index";
         } else {
-            this.resource = resource;
+            this.resource = resource.substring(1);
         }
     }
 
