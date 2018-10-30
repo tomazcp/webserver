@@ -40,17 +40,12 @@ public class WebServer {
     private void listen() {
         try {
             Socket clientSocket = socket.accept();
-
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
-
+            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             Request req = newRequest(reader.readLine());
-
             Response res = processRequest(req);
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
             send(res, out);
-
             clientSocket.close();
 
         } catch (IOException ex) {
@@ -66,7 +61,6 @@ public class WebServer {
      */
     private Request newRequest(String header) {
         String[] headerInfo = header.split(" ");
-
         return new Request(headerInfo[0], headerInfo[1]);
     }
 
@@ -86,12 +80,8 @@ public class WebServer {
                                     200, file.length(), "Document Follows");
 
                     String extension = file.getName().substring(file.getName().indexOf(".") + 1);
-
-                    responseHeader.setContentType(
-                            ContentTypeMapper.getContentType(extension));
-
+                    responseHeader.setContentType(ContentTypeMapper.getContentType(extension));
                     res = new Response(fileToBytes(file), responseHeader);
-
                 }
                 break;
 
@@ -105,14 +95,19 @@ public class WebServer {
     private void send(Response res, DataOutputStream out) throws IOException {
         out.writeBytes(res.getResponseHeader().toString());
         out.write(res.getData());
-
         out.close();
     }
 
+    /**
+     * Replace with
+     * //Pattern pattern = Pattern.compile("(\\.[^.]+)$");
+     * //Matcher matcher = pattern.matcher(filePath);
+     *
+     * @param resource
+     * @return
+     */
     private File fetchResources(String resource) {
         File file;
-        //Pattern pattern = Pattern.compile("(\\.[^.]+)$");
-        //Matcher matcher = pattern.matcher(filePath);
         if (resource.lastIndexOf(".") != -1) {
             file = new File(DOCUMENT_ROOT + resource);
         } else {
@@ -125,9 +120,7 @@ public class WebServer {
         byte[] buffer = new byte[(int) file.length()];
 
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
-
             fileInputStream.read(buffer);
-
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }

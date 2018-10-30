@@ -10,8 +10,6 @@ public class Response {
         this.responseHeader = responseHeader;
     }
 
-    Response() {}
-
     public void setResponseHeader(ResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
     }
