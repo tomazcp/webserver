@@ -3,15 +3,17 @@ package org.academiadecodigo.bootcamp.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class WebServer {
 
     private static final String DOCUMENT_ROOT = "www/";
 
-    private int port;
-    private ServerSocket socket;
+    private final int maxThreads = 500;
 
+    private int port;
 
     public WebServer(int port) {
         this.port = port;
@@ -22,11 +24,17 @@ public class WebServer {
      */
     public void start() {
         try {
-            socket = new ServerSocket(port);
-
+            ServerSocket socket = new ServerSocket(port);
+            ExecutorService fixedPool = Executors.newFixedThreadPool(maxThreads);
+//            while (true) {
+//                Thread t = new Thread(new RequestHandler(socket.accept()));
+//                t.start();
+//            }
+            int count = 0;
             while (true) {
-                Thread thread = new Thread(new RequestHandler(socket.accept()));
-                thread.start();
+                System.out.println("CONNECTIONS: " + count);
+                fixedPool.submit(new RequestHandler(socket.accept()));
+                count++;
             }
 
         } catch (IOException ex) {
@@ -54,6 +62,7 @@ public class WebServer {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request req = createRequest(reader.readLine());
+                System.out.println(req.toString());
                 Response res = createResponse(req);
                 DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
@@ -69,7 +78,7 @@ public class WebServer {
          * Creates a new request object from the incoming header
          *
          * @param header the request header
-         * @return
+         * @return a new request object
          */
         private Request createRequest(String header) {
             String[] headerInfo = header.split(" ");
